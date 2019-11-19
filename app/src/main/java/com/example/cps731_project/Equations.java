@@ -7,6 +7,7 @@ public class Equations {
     final int AMOUNTOFNUMBERS = 5;
     int [] numbers = new int [AMOUNTOFNUMBERS];
     char [] modifiers;
+    int answer;
 
     public Equations(int [] numbers){
         this.numbers = numbers;
@@ -32,7 +33,6 @@ public class Equations {
 
     public int generateAnswer(){
         Random rand = new Random();
-        int answer;
         numbers = getNumbers();
         int randInt = rand.nextInt(numbers.length);
 
