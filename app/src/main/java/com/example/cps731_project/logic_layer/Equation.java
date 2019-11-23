@@ -66,6 +66,8 @@ public class Equation {
         }
 
         answer = iterateAnswer(answer, newNumbers);
+        if(answer<0)
+            answer=generateAnswer();
         return answer;
     }
 
@@ -129,7 +131,7 @@ public class Equation {
 
         int partAnswer = numbers[0];
         int modIndex = 0;
-        for(int i=1; i<numbers.length-1; i++){
+        for(int i=1; i<numbers.length; i++){
             partAnswer = calculate(partAnswer, modifiers[modIndex], numbers[i]);
             modIndex++;
         }
