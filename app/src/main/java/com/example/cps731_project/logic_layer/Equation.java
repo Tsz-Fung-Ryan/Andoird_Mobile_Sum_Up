@@ -126,8 +126,10 @@ public class Equation {
 
     //generates a solution based on the given parameters
     public int partialSolution (int [] numbers, char [] modifiers){
-        if (numbers.length<=1||modifiers.length<=0)
+        if (numbers.length<=0&&modifiers.length<=0)
             return 0;
+        if (numbers.length==1||modifiers.length<=0)
+            return numbers[0];
 
         int partAnswer = numbers[0];
         int modIndex = 0;
