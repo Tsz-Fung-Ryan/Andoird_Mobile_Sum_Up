@@ -7,20 +7,39 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.cps731_project.logic_layer.*;
+
+import java.util.Arrays;
+
 public class GameActivity extends AppCompatActivity {
 
     private TextView selectedView = null;
-    private String[] validNumbers = {"1", "2", "3", "4", "5"};
+    private String[] validNumbers = null;
     private String[] validOperators = {"+", "-"};
+    private Logic_Layer logic_layer = new Logic_Layer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        int answer = 9;
+        int[] numbers = logic_layer.play();
+
+        Log.d("GAME", "Numbers: " + Arrays.toString(numbers));
+
+        validNumbers = new String[numbers.length];
+        for(int i = 0; i < numbers.length; i++) {
+            validNumbers[i] = numbers[i] + "";
+        }
+
+        int answer = logic_layer.currentAnswer();
+
+        Log.d("GAME", "Answer: " + answer);
+
         TextView answerView = findViewById(R.id.answer);
         answerView.setText(Integer.toString(answer));
+
+        setClickableNums(validNumbers);
     }
 
     /**
@@ -53,6 +72,14 @@ public class GameActivity extends AppCompatActivity {
         String temp = view1.getText().toString();
         view1.setText(view2.getText());
         view2.setText(temp);
+    }
+
+    private void setClickableNums(String[] nums) {
+        ((TextView) findViewById(R.id.operand1)).setText(nums[0]);
+        ((TextView) findViewById(R.id.operand2)).setText(nums[1]);
+        ((TextView) findViewById(R.id.operand3)).setText(nums[2]);
+        ((TextView) findViewById(R.id.operand4)).setText(nums[3]);
+        ((TextView) findViewById(R.id.operand5)).setText(nums[4]);
     }
 
     /**
