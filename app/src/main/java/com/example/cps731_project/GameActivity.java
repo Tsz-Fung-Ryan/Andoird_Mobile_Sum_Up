@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.cps731_project.common.Utilities;
 import com.example.cps731_project.logic_layer.*;
 
 import java.util.Arrays;
@@ -35,8 +36,9 @@ public class GameActivity extends AppCompatActivity {
         int answer = logic_layer.currentAnswer();
 
         Log.d("GAME", "Answer: " + answer);
+        Log.d("GAME", "Equation: " + logic_layer.getFormula());
 
-        TextView answerView = findViewById(R.id.answer);
+        TextView answerView = findViewById(R.id.computerAnswer);
         answerView.setText(Integer.toString(answer));
 
         setClickableNums(validNumbers);
@@ -119,6 +121,13 @@ public class GameActivity extends AppCompatActivity {
         if(validNumsAndOps(numbers, operators)) {
             //Check answer to see if it is a valid answer
             Log.d("ANSWER", "Valid answer");
+
+            Utilities util = new Utilities();
+
+            ((TextView) findViewById(R.id.userAnswer)).setText(logic_layer.calculateEquation(util.toIntArray(numbers), util.toCharArray(operators)) + "");
+            boolean correct = logic_layer.solved(util.toIntArray(numbers), util.toCharArray(operators));
+            Log.d("ANSWER", "Sending: " + Arrays.toString(util.toIntArray(numbers)) + ", " + Arrays.toString(util.toCharArray(operators)));
+            Log.d("ANSWER", "Answer result: " + correct);
         } else {
             //Do something, like an error message?
             Log.d("ANSWER", "Invalid answer");
@@ -154,7 +163,7 @@ public class GameActivity extends AppCompatActivity {
      */
     private boolean validNumber(String num) {
         for(int i = 0; i < validNumbers.length; i++) {
-            Log.d("ANSWER", "Checking if " + num + " in " + validNumbers.toString());
+            Log.d("ANSWER", "Checking if " + num + " in " + validNumbers[i].toString());
             if(validNumbers[i].equals(num)) {
                 return true;
             }

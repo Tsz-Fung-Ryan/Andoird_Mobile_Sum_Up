@@ -8,5 +8,6 @@
     <string name="answer">Answer:</string>
     <string name="blank">Blank</string>
     <string name="operator">Operator</string>
+    <string name="current_answer">Current Answer:</string>
     <string name="submit_answer">Submit Answer</string>
 </resources>
