@@ -101,7 +101,7 @@ public class Equation {
     }
 
     //calculates an operation when given 2 operands and an operator
-    private int calculate (int operand1, char modifier, int operand2){
+    public int calculate (int operand1, char modifier, int operand2){
         int calculation=operand1;
 
         switch(modifier) {
