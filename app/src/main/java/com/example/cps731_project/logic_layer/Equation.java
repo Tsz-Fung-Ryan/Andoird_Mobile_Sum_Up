@@ -66,6 +66,8 @@ public class Equation {
         }
 
         answer = iterateAnswer(answer, newNumbers);
+        if(answer<0)
+            answer=generateAnswer();
         return answer;
     }
 
