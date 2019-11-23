@@ -27,7 +27,7 @@ public class Game {
     public void generateNumbers(){
         Random rand = new Random();
         for(int i=0; i<numbers.length; i++)
-            numbers[i] = rand.nextInt(maxNumber);
+            numbers[i] = 1+rand.nextInt(maxNumber);
     }
 
     //getter for numbers
@@ -54,5 +54,14 @@ public class Game {
     //getter for score
     public int getScore(){
         return score;
+    }
+
+    public boolean solved(int [] numbers, char[] modifiers){
+        if(currentEquation.partialSolution(numbers, modifiers)==currentEquation.getAnswer()) {
+            increaseScore();
+            return true;
+        }
+        else
+            return false;
     }
 }
