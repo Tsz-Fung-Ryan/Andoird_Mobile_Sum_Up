@@ -24,6 +24,12 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        newGame();
+    }
+
+    public void newGame() {
+        resetFields();
+
         int[] numbers = logic_layer.play();
 
         Log.d("GAME", "Numbers: " + Arrays.toString(numbers));
@@ -128,6 +134,8 @@ public class GameActivity extends AppCompatActivity {
             boolean correct = logic_layer.solved(util.toIntArray(numbers), util.toCharArray(operators));
             Log.d("ANSWER", "Sending: " + Arrays.toString(util.toIntArray(numbers)) + ", " + Arrays.toString(util.toCharArray(operators)));
             Log.d("ANSWER", "Answer result: " + correct);
+            ((TextView) findViewById(R.id.currentScore)).setText(logic_layer.getScore() + "");
+            newGame();
         } else {
             //Do something, like an error message?
             Log.d("ANSWER", "Invalid answer");
@@ -185,5 +193,31 @@ public class GameActivity extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    /**
+     * Resets the fields on the screen
+     */
+    public void resetFields() {
+        ((TextView) findViewById(R.id.computerAnswer)).setText(getString(R.string.blank));
+
+        ((TextView) findViewById(R.id.operand1)).setText(getString(R.string.blank));
+        ((TextView) findViewById(R.id.operand2)).setText(getString(R.string.blank));
+        ((TextView) findViewById(R.id.operand3)).setText(getString(R.string.blank));
+        ((TextView) findViewById(R.id.operand4)).setText(getString(R.string.blank));
+        ((TextView) findViewById(R.id.operand5)).setText(getString(R.string.blank));
+
+        ((TextView) findViewById(R.id.space1)).setText(getString(R.string.blank));
+        ((TextView) findViewById(R.id.space2)).setText(getString(R.string.blank));
+        ((TextView) findViewById(R.id.space3)).setText(getString(R.string.blank));
+        ((TextView) findViewById(R.id.space4)).setText(getString(R.string.blank));
+        ((TextView) findViewById(R.id.space5)).setText(getString(R.string.blank));
+
+        ((TextView) findViewById(R.id.operator1)).setText(getString(R.string.operator));
+        ((TextView) findViewById(R.id.operator2)).setText(getString(R.string.operator));
+        ((TextView) findViewById(R.id.operator3)).setText(getString(R.string.operator));
+        ((TextView) findViewById(R.id.operator4)).setText(getString(R.string.operator));
+
+        ((TextView) findViewById(R.id.userAnswer)).setText(getString(R.string.blank));
     }
 }
