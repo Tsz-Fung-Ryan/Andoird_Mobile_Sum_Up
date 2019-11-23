@@ -50,7 +50,7 @@ public class Equation {
 
     //generates a random answer based on  the number array and available modifers
     //it will also setup a string that has an equation which outputs the correct answer
-    public int generateAnswer(){
+    private int generateAnswer(){
         numbers = getNumbers();
         int randInt = rand.nextInt(numbers.length);
 
