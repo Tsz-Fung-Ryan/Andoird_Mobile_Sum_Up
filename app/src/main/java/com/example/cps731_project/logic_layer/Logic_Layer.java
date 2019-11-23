@@ -39,12 +39,7 @@ public class Logic_Layer {
 
     //if true the game will increase the score and UI is expected to call for the next round
     public boolean solved(int [] numbers, char[] modifiers){
-        if(calculateEquation(numbers, modifiers)==currentAnswer()) {
-            game.increaseScore();
-            return true;
-        }
-        else
-            return false;
+        return game.solved(numbers, modifiers);
     }
 
     //returns the formula that gives the correct answer used for testing
