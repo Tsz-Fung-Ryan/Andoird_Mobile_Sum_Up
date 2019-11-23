@@ -1,10 +1,10 @@
-package com.example.cps731_project;
+package com.example.cps731_project.logic_layer;
 import java.util.Random;
 import java.lang.Integer;
 
 
-
-public class Equations {
+//The equation class creates the questions for the game
+public class Equation {
 
     private final int AMOUNTOFNUMBERS = 5;
     private Random rand = new Random();
@@ -12,30 +12,41 @@ public class Equations {
     private char [] modifiers;
     private int answer;
 
-    public Equations(int [] numbers){
+    //default constructor for testing
+    public Equation(int [] numbers){
         this.numbers = numbers;
         setModifiers(new char [] {'+','-'});
+        generateAnswer();
     }
 
-    public Equations (int [] numbers, char [] modifiers){
+    //main constructor for app
+    public Equation(int [] numbers, char [] modifiers){
         setNumbers(numbers);
         setModifiers(modifiers);
+        generateAnswer();
     }
 
-    public void setNumbers(int[] numbers) {
+    //setter for numbers
+    public void setNumbers(int[] numbers){
         this.numbers = numbers;
     }
 
+    //getter for numbers
     public int [] getNumbers(){
         return numbers;
     }
 
+    //setter for modifiers
     public void setModifiers(char[] modifiers) {
         this.modifiers = modifiers;
     }
+
+    //getter for modifiers
     public char [] getModifiers(){
         return modifiers;
     }
+
+    //generates a random answer based on  the number array and available modifers
     public int generateAnswer(){
         numbers = getNumbers();
         int randInt = rand.nextInt(numbers.length);
@@ -54,7 +65,8 @@ public class Equations {
         return answer;
     }
 
-    public int iterateAnswer(int answer, int[]numbers){
+    //recursive case for generate answer
+    private int iterateAnswer(int answer, int[]numbers){
         if(numbers.length==0)
             return answer;
         else{
@@ -78,6 +90,13 @@ public class Equations {
             return answer;
         }
     }
+
+    //getter for answer
+    public int getAnswer(){
+        return answer;
+    }
+
+    //calculates an operation when given 2 operands and an operator
     private int calculate (int operand1, char modifier, int operand2){
         int calculation=operand1;
 
@@ -97,6 +116,7 @@ public class Equations {
         return calculation;
     }
 
+    //generates a solution based on the given parameters
     public int partialSolution (int [] numbers, char [] modifiers){
         if (numbers.length<=1||modifiers.length<=0)
             return 0;
