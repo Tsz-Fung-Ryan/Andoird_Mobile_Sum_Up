@@ -1,6 +1,7 @@
 package com.example.cps731_project.logic_layer;
 import java.util.Random;
 import java.lang.Integer;
+import java.lang.Math;
 
 
 //The equation class creates the questions for the game
@@ -114,7 +115,9 @@ public class Equation {
                 calculation= calculation*operand2;
                 break;
             case '^':
-                calculation= calculation^operand2;
+                double tempDouble= Math.pow((double) calculation,(double) operand2);
+                calculation = (int) tempDouble;
+                break;
         }
         return calculation;
     }
