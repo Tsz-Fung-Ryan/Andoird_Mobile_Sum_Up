@@ -14,6 +14,10 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        int answer = 9;
+        TextView answerView = findViewById(R.id.answer);
+        answerView.setText(Integer.toString(answer));
     }
 
     public void elementClick(View view) {
