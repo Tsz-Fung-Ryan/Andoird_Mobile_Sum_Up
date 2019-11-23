@@ -1,5 +1,7 @@
 package com.example.cps731_project;
 import java.util.Random;
+import java.lang.Integer;
+
 
 
 public class Equations {
@@ -89,7 +91,23 @@ public class Equations {
             case 'x':
                 calculation= calculation*operand2;
                 break;
+            case '^':
+                calculation= calculation^operand2;
         }
         return calculation;
+    }
+
+    public int partialSolution (int [] numbers, char [] modifiers){
+        if (numbers.length<=1||modifiers.length<=0)
+            return 0;
+
+        int partAnswer = numbers[0];
+        int modIndex = 0;
+        for(int i=1; i<numbers.length-1; i++){
+            partAnswer = calculate(partAnswer, modifiers[modIndex], numbers[i]);
+            modIndex++;
+        }
+
+        return partAnswer;
     }
 }
