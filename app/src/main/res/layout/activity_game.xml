@@ -7,6 +7,63 @@
     tools:context=".GameActivity">
 
     <TextView
+        android:id="@+id/answerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/answer"
+        app:layout_constraintEnd_toStartOf="@+id/answer"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameTitle" />
+
+    <TextView
+        android:id="@+id/answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/answerText"
+        app:layout_constraintTop_toTopOf="@+id/answerText" />
+
+    <TextView
+        android:id="@+id/operator3"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:background="#009688"
+        android:onClick="cycleOperators"
+        android:text="@string/operator"
+        app:layout_constraintEnd_toStartOf="@+id/space4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/space3"
+        app:layout_constraintTop_toTopOf="@+id/space3" />
+
+    <TextView
+        android:id="@+id/operator4"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:background="#009688"
+        android:onClick="cycleOperators"
+        android:text="@string/operator"
+        app:layout_constraintEnd_toStartOf="@+id/space5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/space4"
+        app:layout_constraintTop_toTopOf="@+id/space4" />
+
+    <TextView
+        android:id="@+id/operator2"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:background="#009688"
+        android:onClick="cycleOperators"
+        android:text="@string/operator"
+        app:layout_constraintEnd_toStartOf="@+id/space3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/space2"
+        app:layout_constraintTop_toTopOf="@+id/space2" />
+
+    <TextView
         android:id="@+id/gameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,8 +78,158 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:onClick="submitAnswer"
         android:text="@string/submit_answer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/space1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="128dp"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toStartOf="@+id/operator1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/operand1" />
+
+    <TextView
+        android:id="@+id/operand1"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="72dp"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toStartOf="@+id/operand2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answerText" />
+
+    <TextView
+        android:id="@+id/operand2"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toStartOf="@+id/operand3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/operand1"
+        app:layout_constraintTop_toTopOf="@+id/operand1" />
+
+    <TextView
+        android:id="@+id/operand5"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/operand4"
+        app:layout_constraintTop_toTopOf="@+id/operand4" />
+
+    <TextView
+        android:id="@+id/operand3"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toStartOf="@+id/operand4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/operand2"
+        app:layout_constraintTop_toTopOf="@+id/operand2" />
+
+    <TextView
+        android:id="@+id/operand4"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toStartOf="@+id/operand5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/operand3"
+        app:layout_constraintTop_toTopOf="@+id/operand3" />
+
+    <TextView
+        android:id="@+id/space2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toStartOf="@+id/operator2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/operator1"
+        app:layout_constraintTop_toTopOf="@+id/operator1" />
+
+    <TextView
+        android:id="@+id/space3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toStartOf="@+id/operator3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/operator2"
+        app:layout_constraintTop_toTopOf="@+id/operator2" />
+
+    <TextView
+        android:id="@+id/space4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toStartOf="@+id/operator4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/operator3"
+        app:layout_constraintTop_toTopOf="@+id/operator3" />
+
+    <TextView
+        android:id="@+id/space5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#009688"
+        android:onClick="elementClick"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/operator4"
+        app:layout_constraintTop_toTopOf="@+id/operator4" />
+
+    <TextView
+        android:id="@+id/operator1"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:background="#009688"
+        android:onClick="cycleOperators"
+        android:text="@string/operator"
+        app:layout_constraintEnd_toStartOf="@+id/space2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/space1"
+        app:layout_constraintTop_toTopOf="@+id/space1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
