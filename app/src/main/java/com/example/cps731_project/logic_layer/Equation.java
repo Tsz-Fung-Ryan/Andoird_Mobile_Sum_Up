@@ -54,7 +54,7 @@ public class Equation {
         int randInt = rand.nextInt(numbers.length);
 
         answer = numbers[randInt];
-        equationAnswer += Integer.toString(answer);
+        equationAnswer = Integer.toString(answer);
         int [] newNumbers = new int[numbers.length-1];
 
         for(int i = 0; i<newNumbers.length; i++){
@@ -76,8 +76,8 @@ public class Equation {
             modifiers=getModifiers();
             int randInt = rand.nextInt(numbers.length);
             int operand = numbers[randInt];
-            randInt = rand.nextInt(modifiers.length);
-            char operator = modifiers[randInt];
+            int modInt = rand.nextInt(modifiers.length);
+            char operator = modifiers[modInt];
 
             answer = calculate(answer, operator, operand);
             equationAnswer+= Character.toString(operator) + Integer.toString(operand);
