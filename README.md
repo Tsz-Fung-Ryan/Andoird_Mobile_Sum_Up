@@ -14,4 +14,4 @@ Developer info:
     To test the app on a physical android phone you need to follow this setup page
     https://developer.android.com/studio/run/device
     
-First game mode we are working on is speed trial (how fast you can complete a set of questions, say 5 or 20)
+First game mode we are working on is speed trial (how many questions you can comeplete in a set amount of time)
