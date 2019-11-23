@@ -26,8 +26,8 @@ public class Game {
     //generates the numbers for the game
     public void generateNumbers(){
         Random rand = new Random();
-        for(int i: numbers)
-            numbers[i] = rand.nextInt(maxNumber);
+        for(int number: numbers)
+            number = rand.nextInt(maxNumber);
     }
 
     //getter for numbers
