@@ -46,4 +46,9 @@ public class Logic_Layer {
         else
             return false;
     }
+
+    //returns the formula that gives the correct answer used for testing
+    public String getFormula(){
+        return game.getCurrentEquation().getEquationAnswer();
+    }
 }

@@ -11,6 +11,7 @@ public class Equation {
     private int [] numbers = new int [AMOUNTOFNUMBERS];
     private char [] modifiers;
     private int answer;
+    private String equationAnswer;
 
     //default constructor for testing
     public Equation(int [] numbers){
@@ -47,11 +48,13 @@ public class Equation {
     }
 
     //generates a random answer based on  the number array and available modifers
+    //it will also setup a string that has an equation which outputs the correct answer
     public int generateAnswer(){
         numbers = getNumbers();
         int randInt = rand.nextInt(numbers.length);
 
         answer = numbers[randInt];
+        equationAnswer += Integer.toString(answer);
         int [] newNumbers = new int[numbers.length-1];
 
         for(int i = 0; i<newNumbers.length; i++){
@@ -77,7 +80,7 @@ public class Equation {
             char operator = modifiers[randInt];
 
             answer = calculate(answer, operator, operand);
-
+            equationAnswer+= Character.toString(operator) + Integer.toString(operand);
             int [] newNumbers = new int[numbers.length-1];
 
             for(int i = 0; i<newNumbers.length; i++){
@@ -129,5 +132,10 @@ public class Equation {
         }
 
         return partAnswer;
+    }
+
+    //returns a string indicating the steps used to generate an answer
+    public String getEquationAnswer(){
+        return equationAnswer;
     }
 }
