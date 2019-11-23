@@ -7,18 +7,28 @@
     tools:context=".GameActivity">
 
     <TextView
+        android:id="@+id/userAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blank"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/currentAnswer"
+        app:layout_constraintTop_toTopOf="@+id/currentAnswer" />
+
+    <TextView
         android:id="@+id/answerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="@string/answer"
-        app:layout_constraintEnd_toStartOf="@+id/answer"
+        app:layout_constraintEnd_toStartOf="@+id/computerAnswer"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameTitle" />
 
     <TextView
-        android:id="@+id/answer"
+        android:id="@+id/computerAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/blank"
@@ -231,5 +241,16 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/space1"
         app:layout_constraintTop_toTopOf="@+id/space1" />
+
+    <TextView
+        android:id="@+id/currentAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="@string/current_answer"
+        app:layout_constraintEnd_toStartOf="@+id/userAnswer"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/space1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
