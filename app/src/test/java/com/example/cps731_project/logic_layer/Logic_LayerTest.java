@@ -2,11 +2,12 @@ package com.example.cps731_project.logic_layer;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.Assert.*;
 
-public class GameTest {
+public class Logic_LayerTest {
 
     // Max amount of numbers per question
     private final int AMOUNTOFNUMBERS = 5;
@@ -21,44 +22,8 @@ public class GameTest {
     Game g3 = new Game(1, new char[]{'+'});
 
     @Test
-    // Ensuring every number is positive
-    public void generateNumbers() {
-
-        g1.playGame();
-        for(int i : g1.getNumbers()){
-            assertTrue(i >= 0);
-        }
-
-        g2.playGame();
-        for(int i : g2.getNumbers()) {
-            assertTrue(i >= 0);
-        }
-    }
-
-    @Test
-    // Making sure numbers are generated are within threshold of its parameters
-    public void getNumbers() {
-
-        g1.generateNumbers();
-        assertTrue(g1.getNumbers().length == AMOUNTOFNUMBERS);
-        for(int i : g1.getNumbers()){
-            System.out.printf("%d ", i);
-        }
-        System.out.println();
-
-        g2.generateNumbers();
-        assertTrue(g2.getNumbers().length == AMOUNTOFNUMBERS);
-        for(int i : g2.getNumbers()){
-            System.out.printf("%d ", i);
-        }
-        System.out.println();
-        System.out.println();
-    }
-
-    @Test
-    // Outputs the numbers generated, the modifiers used, the answer, and the equation to answer
-    public void getCurrentEquation() {
-
+    // Ensures all numbers, operators, and answers are all within their respective parameters
+    public void play() {
         g1.playGame();
         for (int i : g1.getCurrentEquation().getNumbers()) {
             System.out.printf("%d ", i);
@@ -80,18 +45,25 @@ public class GameTest {
         System.out.println();
     }
 
+    @Test
+    // Ensures a newly created game outputs something
+    public void newGame() {
+
+        assertFalse(g1 == null);
+        assertFalse(g2 == null);
+        assertFalse(g3 == null);
+    }
 
     @Test
-    // Ensuring scoring increments by 1 every time answer is correct
+    // Ensures scoring functionality is working by adding 1 when score is increased
     public void getScore() {
-
         System.out.println(g1.getScore());
         g1.increaseScore();
         System.out.println(g1.getScore());
     }
 
     @Test
-    // Ensuring solving functionality is correct
+    // Specific scenario: Ensures the solving functionality is correct
     public void solved() {
         g3.playGame();
         assertTrue(g3.solved(new int[]{1,1,1,1,1}, new char[]{'+', '+', '+', '+'}));
@@ -99,4 +71,5 @@ public class GameTest {
         System.out.println(g3.getCurrentEquation().getAnswer());
         System.out.println();
     }
+
 }
