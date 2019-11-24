@@ -50,7 +50,7 @@ public class Equation {
 
     //generates a random answer based on  the number array and available modifers
     //it will also setup a string that has an equation which outputs the correct answer
-    public int generateAnswer(){
+    private int generateAnswer(){
         numbers = getNumbers();
         int randInt = rand.nextInt(numbers.length);
 
@@ -66,6 +66,8 @@ public class Equation {
         }
 
         answer = iterateAnswer(answer, newNumbers);
+        if(answer<0)
+            answer=generateAnswer();
         return answer;
     }
 
@@ -101,7 +103,7 @@ public class Equation {
     }
 
     //calculates an operation when given 2 operands and an operator
-    private int calculate (int operand1, char modifier, int operand2){
+    public int calculate (int operand1, char modifier, int operand2){
         int calculation=operand1;
 
         switch(modifier) {
@@ -124,8 +126,10 @@ public class Equation {
 
     //generates a solution based on the given parameters
     public int partialSolution (int [] numbers, char [] modifiers){
-        if (numbers.length<=1||modifiers.length<=0)
+        if (numbers.length<=0&&modifiers.length<=0)
             return 0;
+        if (numbers.length==1||modifiers.length<=0)
+            return numbers[0];
 
         int partAnswer = numbers[0];
         int modIndex = 0;

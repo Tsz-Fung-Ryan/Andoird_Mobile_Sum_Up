@@ -12,4 +12,6 @@
     <string name="current_score">Current Score:</string>
     <string name="starting_score">0</string>
     <string name="submit_answer">Submit Answer</string>
+    <string name="maximum_number">Maximum Number:</string>
+    <string name="modifiers">Modifiers:</string>
 </resources>
