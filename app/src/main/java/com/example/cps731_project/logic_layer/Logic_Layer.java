@@ -26,8 +26,8 @@ public class Logic_Layer {
 
     //returns current calcuation for UI
     public int calculateEquation(int [] numbers, char[]modifiers){
-        if (numbers.length<=1|| modifiers.length<=0)
-            return 0;
+        if (numbers.length<=1||modifiers.length<=0)
+            return numbers[0];
 
         return game.getCurrentEquation().partialSolution(numbers, modifiers);
     }

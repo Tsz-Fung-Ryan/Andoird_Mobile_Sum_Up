@@ -7,16 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.cps731_project.common.Utilities;
 import com.example.cps731_project.logic_layer.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GameActivity extends AppCompatActivity {
 
     private TextView selectedView = null;
     private String[] validNumbers = null;
-    private String[] validOperators = {"+", "-"};
     private Logic_Layer logic_layer = new Logic_Layer();
 
     @Override
@@ -69,6 +68,8 @@ public class GameActivity extends AppCompatActivity {
             textView.setTextSize(28);
             selectedView = textView;
         }
+
+        calculateAnswer();
     }
 
     /**
@@ -80,14 +81,6 @@ public class GameActivity extends AppCompatActivity {
         String temp = view1.getText().toString();
         view1.setText(view2.getText());
         view2.setText(temp);
-    }
-
-    private void setClickableNums(String[] nums) {
-        ((TextView) findViewById(R.id.operand1)).setText(nums[0]);
-        ((TextView) findViewById(R.id.operand2)).setText(nums[1]);
-        ((TextView) findViewById(R.id.operand3)).setText(nums[2]);
-        ((TextView) findViewById(R.id.operand4)).setText(nums[3]);
-        ((TextView) findViewById(R.id.operand5)).setText(nums[4]);
     }
 
     /**
@@ -102,6 +95,22 @@ public class GameActivity extends AppCompatActivity {
         } else {
             textView.setText("+");
         }
+
+        calculateAnswer();
+    }
+
+    /**
+     * Calls logic layer to calculate current answer and display result to user
+     */
+    public void calculateAnswer() {
+        int[] numbers = getNumbers();
+        char[] operators = getOperators();
+
+        if(numbers.length > 0 && numbers.length-1 == operators.length) {
+            int currentAnswer = logic_layer.calculateEquation(numbers, operators);
+
+            ((TextView) findViewById(R.id.userAnswer)).setText(currentAnswer + "");
+        }
     }
 
     /**
@@ -109,90 +118,75 @@ public class GameActivity extends AppCompatActivity {
      * @param view
      */
     public void submitAnswer(View view) {
-        String[] numbers = {
-                ((TextView) findViewById(R.id.space1)).getText().toString(),
-                ((TextView) findViewById(R.id.space2)).getText().toString(),
-                ((TextView) findViewById(R.id.space3)).getText().toString(),
-                ((TextView) findViewById(R.id.space4)).getText().toString(),
-                ((TextView) findViewById(R.id.space5)).getText().toString()
-        };
+        int[] numbers = getNumbers();
+        char[] operators = getOperators();
 
-        String[] operators = {
-                ((TextView) findViewById(R.id.operator1)).getText().toString(),
-                ((TextView) findViewById(R.id.operator2)).getText().toString(),
-                ((TextView) findViewById(R.id.operator3)).getText().toString(),
-                ((TextView) findViewById(R.id.operator4)).getText().toString(),
-        };
-
-        if(validNumsAndOps(numbers, operators)) {
+        if(numbers.length == 5 && operators.length == 4) {
             //Check answer to see if it is a valid answer
             Log.d("ANSWER", "Valid answer");
 
-            Utilities util = new Utilities();
-
-            ((TextView) findViewById(R.id.userAnswer)).setText(logic_layer.calculateEquation(util.toIntArray(numbers), util.toCharArray(operators)) + "");
-            boolean correct = logic_layer.solved(util.toIntArray(numbers), util.toCharArray(operators));
-            Log.d("ANSWER", "Sending: " + Arrays.toString(util.toIntArray(numbers)) + ", " + Arrays.toString(util.toCharArray(operators)));
+            ((TextView) findViewById(R.id.userAnswer)).setText(logic_layer.calculateEquation(numbers, operators) + "");
+            boolean correct = logic_layer.solved(numbers, operators);
+            Log.d("ANSWER", "Sending: " + Arrays.toString(numbers) + ", " + Arrays.toString(operators));
             Log.d("ANSWER", "Answer result: " + correct);
             ((TextView) findViewById(R.id.currentScore)).setText(logic_layer.getScore() + "");
             newGame();
         } else {
-            //Do something, like an error message?
             Log.d("ANSWER", "Invalid answer");
         }
     }
 
     /**
-     * Checks if the passed nums and ops arrays are valid
-     * @param nums, the array that contains the numbers to be checked
-     * @param ops, the array that contains the operators to be checked
-     * @return true or false if the numbers and operators are valid
+     * Returns all the numbers in an int array
+     * @return the int array
      */
-    private boolean validNumsAndOps(String[] nums, String[] ops) {
-        for(int i = 0; i < nums.length; i++) {
-            if(!validNumber(nums[i])) {
-                return false;
-            }
+    private int[] getNumbers() {
+         ArrayList<Integer> validNumbers = new ArrayList<>();
+        //If the space does not contain the string blank then add it as an integer to the validNumbers arraylist
+        if(!((TextView) findViewById(R.id.space1)).getText().toString().equals("Blank")) validNumbers.add(Integer.valueOf(((TextView) findViewById(R.id.space1)).getText().toString()));
+        if(!((TextView) findViewById(R.id.space2)).getText().toString().equals("Blank")) validNumbers.add(Integer.valueOf(((TextView) findViewById(R.id.space2)).getText().toString()));
+        if(!((TextView) findViewById(R.id.space3)).getText().toString().equals("Blank")) validNumbers.add(Integer.valueOf(((TextView) findViewById(R.id.space3)).getText().toString()));
+        if(!((TextView) findViewById(R.id.space4)).getText().toString().equals("Blank")) validNumbers.add(Integer.valueOf(((TextView) findViewById(R.id.space4)).getText().toString()));
+        if(!((TextView) findViewById(R.id.space5)).getText().toString().equals("Blank")) validNumbers.add(Integer.valueOf(((TextView) findViewById(R.id.space5)).getText().toString()));
+
+        int[] numbers = new int[validNumbers.size()];
+        for(int i = 0; i < validNumbers.size(); i++) {
+            numbers[i] = validNumbers.get(i);
         }
 
-        for(int i = 0; i < ops.length; i++) {
-            if(!validOperator(ops[i])) {
-                return false;
-            }
-        }
-
-        return true;
+        return numbers;
     }
 
     /**
-     * Parses the number of the view passed into the function
-     * @param num, the passed TextView to get parse the number of
-     * @return the parse number
+     * Returns all the operators in a char array
+     * @return the char array
      */
-    private boolean validNumber(String num) {
-        for(int i = 0; i < validNumbers.length; i++) {
-            Log.d("ANSWER", "Checking if " + num + " in " + validNumbers[i].toString());
-            if(validNumbers[i].equals(num)) {
-                return true;
-            }
+    private char[] getOperators() {
+        ArrayList<Character> validOperators = new ArrayList<>();
+        //If the space does not contain the string blank then add it as an character to the validOperators arraylist
+        if(!((TextView) findViewById(R.id.operator1)).getText().toString().equals("Operator")) validOperators.add(((TextView) findViewById(R.id.operator1)).getText().charAt(0));
+        if(!((TextView) findViewById(R.id.operator2)).getText().toString().equals("Operator")) validOperators.add(((TextView) findViewById(R.id.operator2)).getText().charAt(0));
+        if(!((TextView) findViewById(R.id.operator3)).getText().toString().equals("Operator")) validOperators.add(((TextView) findViewById(R.id.operator3)).getText().charAt(0));
+        if(!((TextView) findViewById(R.id.operator4)).getText().toString().equals("Operator")) validOperators.add(((TextView) findViewById(R.id.operator4)).getText().charAt(0));
+
+        char[] operators = new char[validOperators.size()];
+        for(int i = 0; i < validOperators.size(); i++) {
+            operators[i] = validOperators.get(i);
         }
 
-        return false;
+        return operators;
     }
 
     /**
-     * Checks if the passed operator is valid
-     * @param operator to be check if it is valid
-     * @return true or false if the operator is valid
+     * Sets the values for the clickable textviews
+     * @param nums, the numbers to set the textviews to
      */
-    private boolean validOperator(String operator) {
-        for(int i = 0; i < validOperators.length; i++) {
-            if(validOperators[i].equals(operator)) {
-                return true;
-            }
-        }
-
-        return false;
+    private void setClickableNums(String[] nums) {
+        ((TextView) findViewById(R.id.operand1)).setText(nums[0]);
+        ((TextView) findViewById(R.id.operand2)).setText(nums[1]);
+        ((TextView) findViewById(R.id.operand3)).setText(nums[2]);
+        ((TextView) findViewById(R.id.operand4)).setText(nums[3]);
+        ((TextView) findViewById(R.id.operand5)).setText(nums[4]);
     }
 
     /**
