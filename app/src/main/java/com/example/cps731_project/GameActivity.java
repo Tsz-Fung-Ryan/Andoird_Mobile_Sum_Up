@@ -2,20 +2,33 @@ package com.example.cps731_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import com.example.cps731_project.logic_layer.*;
+
+import java.util.concurrent.TimeUnit;
+import android.os.CountDownTimer;
+
+import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GameActivity extends AppCompatActivity {
 
+    //whatever is currently tapped on screen
     private TextView selectedView = null;
+
+    //time limit of game in milliseconds
+    private int timeLimit;
+
+    //valid numbers
     private String[] validNumbers = null;
+
+    //logic layer instance
     private Logic_Layer logic_layer = new Logic_Layer();
 
     @Override
@@ -23,9 +36,19 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        //set time limit
+        timeLimit = 120000;
+
+        //start timer
+        startTimer(timeLimit);
+
+        //start game
         newGame();
     }
 
+    /**
+     * Starts a new game
+     */
     public void newGame() {
         resetFields();
 
@@ -178,6 +201,34 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * Starts the timer that counts down when game starts
+     */
+    public void startTimer(int timeLimit){
+        new CountDownTimer(timeLimit, 1000) {
+
+            public void onTick(long timeRemaining) {
+                String time = String.format("%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes(timeRemaining),
+                        TimeUnit.MILLISECONDS.toSeconds(timeRemaining) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeRemaining)));
+
+                //if time is less than 15 seconds, set color to red
+                if (timeRemaining < 15000){
+                    ((TextView) findViewById(R.id.timeRemaining)).setTextColor(Color.parseColor("#E13C47"));
+                }
+
+                ((TextView) findViewById(R.id.timeRemaining)).setText(time);
+            }
+
+            public void onFinish() {
+                Intent intent = new Intent();
+                intent.setClassName("com.example.cps731_project", "com.example.cps731_project.ScoreScreenActivity");
+                intent.putExtra("user_score", String.valueOf(logic_layer.getScore()));
+                startActivity(intent);
+            }
+        }.start();
+    }
+
+    /**
      * Sets the values for the clickable textviews
      * @param nums, the numbers to set the textviews to
      */
@@ -195,23 +246,30 @@ public class GameActivity extends AppCompatActivity {
     public void resetFields() {
         ((TextView) findViewById(R.id.computerAnswer)).setText(getString(R.string.blank));
 
+        //timer
+        ((TextView) findViewById(R.id.timeRemaining)).setText("00:00");
+
+        //operands
         ((TextView) findViewById(R.id.operand1)).setText(getString(R.string.blank));
         ((TextView) findViewById(R.id.operand2)).setText(getString(R.string.blank));
         ((TextView) findViewById(R.id.operand3)).setText(getString(R.string.blank));
         ((TextView) findViewById(R.id.operand4)).setText(getString(R.string.blank));
         ((TextView) findViewById(R.id.operand5)).setText(getString(R.string.blank));
 
+        //spaces
         ((TextView) findViewById(R.id.space1)).setText(getString(R.string.blank));
         ((TextView) findViewById(R.id.space2)).setText(getString(R.string.blank));
         ((TextView) findViewById(R.id.space3)).setText(getString(R.string.blank));
         ((TextView) findViewById(R.id.space4)).setText(getString(R.string.blank));
         ((TextView) findViewById(R.id.space5)).setText(getString(R.string.blank));
 
+        //operators
         ((TextView) findViewById(R.id.operator1)).setText(getString(R.string.operator));
         ((TextView) findViewById(R.id.operator2)).setText(getString(R.string.operator));
         ((TextView) findViewById(R.id.operator3)).setText(getString(R.string.operator));
         ((TextView) findViewById(R.id.operator4)).setText(getString(R.string.operator));
 
+        //current answer calculated by user
         ((TextView) findViewById(R.id.userAnswer)).setText(getString(R.string.blank));
     }
 }
