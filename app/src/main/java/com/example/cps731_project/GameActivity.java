@@ -246,9 +246,6 @@ public class GameActivity extends AppCompatActivity {
     public void resetFields() {
         ((TextView) findViewById(R.id.computerAnswer)).setText(getString(R.string.blank));
 
-        //timer
-        ((TextView) findViewById(R.id.timeRemaining)).setText("00:00");
-
         //operands
         ((TextView) findViewById(R.id.operand1)).setText(getString(R.string.blank));
         ((TextView) findViewById(R.id.operand2)).setText(getString(R.string.blank));
