@@ -40,7 +40,7 @@ public class Game {
         return currentEquation;
     }
 
-    //careates a round by initializing a new equation by generating a finite amount of numbers
+    //creates a round by initializing a new equation by generating a finite amount of numbers
     public void playGame(){
         generateNumbers();
         currentEquation = new Equation(numbers,modifiers);
@@ -56,6 +56,7 @@ public class Game {
         return score;
     }
 
+    //returns whether or not the answer was correct
     public boolean solved(int [] numbers, char[] modifiers){
         if(currentEquation.partialSolution(numbers, modifiers)==currentEquation.getAnswer()) {
             increaseScore();
