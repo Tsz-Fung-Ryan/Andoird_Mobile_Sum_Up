@@ -1,11 +1,18 @@
 package com.example.cps731_project.logic_layer;
 
-
+/*
+"
+* Interface that provides logic for users to play games
+*
+* */
 public class Logic_Layer {
 
-    Game game = new Game();
+    //Game class
+    Game game;
 
+    //Constructor
     public Logic_Layer(){
+        game = new Game();
     }
 
     //plays a round of the game
